@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export default function AboutBanner() {
   return (
-    <section className="relative bg-gradient-to-r from-blue-100 to-blue-50 pb-20">
+    <section className="relative bg-gradient-to-r from-blue-110 to-blue-50 pb-20">
       {/* SVG Curve */}
       <svg
         className="absolute bottom-0 left-0 w-full"

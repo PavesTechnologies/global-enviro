@@ -1,20 +1,35 @@
-import JobCard from "@/components/careers/JobCard";
-import { jobs } from "@/lib/data/jobs";
+import { headers } from "next/headers";
+import CareersBrowser from "@/components/careers/CareersBrowser";
 
-export default function CareersPage() {
+async function getJobs() {
+  const headerList = await headers();
+  const host = headerList.get("x-forwarded-host") || headerList.get("host");
+  const protocol = headerList.get("x-forwarded-proto") || "http";
+  const baseUrl = process.env.NEXTAUTH_URL || `${protocol}://${host}`;
+
+  const response = await fetch(`${baseUrl}/api/jobs`, { cache: "no-store" });
+
+  if (!response.ok) {
+    return [];
+  }
+
+  return response.json();
+}
+
+export default async function CareersPage() {
+  const jobs = await getJobs();
+
   return (
-    <main className="max-w-4xl mx-auto py-12 px-6">
-      <h1 className="text-4xl font-bold mb-4 text-accent">Careers at Global Industries</h1>
-      <p className="text-gray-600 mb-10">
-        We’re always looking for passionate people to join our growing team.
-        Browse our open roles below.
+    <main className="mx-auto max-w-6xl px-6 py-12">
+      <h1 className="mb-4 text-4xl font-bold text-accent">
+        Careers at Global Industries
+      </h1>
+      <p className="mb-10 text-gray-600">
+        We&apos;re always looking for passionate people to join our growing
+        team. Browse our open roles below.
       </p>
 
-      {jobs.length === 0 ? (
-        <p>No open positions right now. Check back soon!</p>
-      ) : (
-        jobs.map((job) => <JobCard key={job.id} job={job} />)
-      )}
+      <CareersBrowser jobs={jobs} />
     </main>
   );
 }

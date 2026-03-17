@@ -1,9 +1,16 @@
 "use client";
+
 import Link from "next/link";
 import { useState } from "react";
 
 export default function JobCard({ job }) {
   const [expanded, setExpanded] = useState(false);
+  const requirements = Array.isArray(job.requirements)
+    ? job.requirements
+    : String(job.requirements || "")
+        .split("\n")
+        .map((item) => item.trim())
+        .filter(Boolean);
 
   return (
     <div className="border rounded-2xl p-6 mb-6 shadow-sm hover:shadow-md transition">
@@ -27,11 +34,13 @@ export default function JobCard({ job }) {
       {expanded && (
         <div className="mt-4 text-gray-700">
           <p>{job.description}</p>
-          <ul className="list-disc ml-5 mt-3 space-y-1">
-            {job.requirements.map((req, i) => (
-              <li key={i}>{req}</li>
-            ))}
-          </ul>
+          {requirements.length > 0 ? (
+            <ul className="list-disc ml-5 mt-3 space-y-1">
+              {requirements.map((req, index) => (
+                <li key={index}>{req}</li>
+              ))}
+            </ul>
+          ) : null}
 
           <Link
             href={`/careers/apply/${job.id}`}

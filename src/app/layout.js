@@ -1,10 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { icons } from "lucide-react";
-import Navbar from "@/components/Layouts/Navbar";
-import Footer from "@/components/Layouts/Footer";
-import { TwentyFirstToolbar } from '@21st-extension/toolbar-next';
-
+import ConditionalSiteChrome from "@/components/Layouts/ConditionalSiteChrome";
+import AppProviders from "@/components/providers/AppProviders";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,9 +16,9 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: "Global Enviro",
   description: "Golbal enviro landing page",
-  icons:{
-    icon:"/assets/images/global_enviro_logo.png"
-  }
+  icons: {
+    icon: "/assets/images/global_enviro_logo.png",
+  },
 };
 
 export default function RootLayout({ children }) {
@@ -30,10 +27,9 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        
-        <Navbar />
-        {children}
-        <Footer />
+        <AppProviders>
+          <ConditionalSiteChrome>{children}</ConditionalSiteChrome>
+        </AppProviders>
       </body>
     </html>
   );

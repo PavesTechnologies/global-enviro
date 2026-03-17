@@ -136,6 +136,372 @@
   clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
 }
 
+.bento-gallery {
+  display: grid;
+  gap: 4px;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  min-height: 260px;
+  height: clamp(240px, 28vw, 320px);
+  background: #e2e8f0;
+}
+
+.bento-gallery.count-1 {
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+
+.bento-gallery.count-1 .bento-img {
+  height: 100%;
+}
+
+.bento-gallery.count-2 {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+}
+
+.bento-gallery.count-2 .bento-img {
+  height: 100%;
+}
+
+.bento-gallery.count-3 {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+.bento-gallery.count-3 .bento-img:first-child {
+  grid-row: 1 / 3;
+}
+
+.bento-gallery.count-4-plus {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+.bento-gallery.count-4-plus .bento-img:first-child {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+}
+
+.bento-img {
+  position: relative;
+  overflow: hidden;
+  border: none;
+  padding: 0;
+  background: transparent;
+  text-align: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.bento-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.bento-img:hover img {
+  transform: scale(1.04);
+}
+
+.bento-img.has-more::after {
+  content: attr(data-more);
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+.news-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.news-card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.news-card-content {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 7;
+}
+
+.gallery-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.92);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.15s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.gallery-modal-content {
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 64px;
+}
+
+.gallery-modal-image-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: 82vh;
+}
+
+.gallery-modal-image {
+  max-width: 100%;
+  max-height: 82vh;
+  object-fit: contain;
+  border-radius: 8px;
+  animation: slideIn 0.2s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.gallery-modal-close {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.4rem;
+  cursor: pointer;
+  opacity: 0.7;
+  padding: 8px 12px;
+  line-height: 1;
+  transition: opacity 0.15s;
+}
+
+.gallery-modal-close:hover {
+  opacity: 1;
+}
+
+.gallery-modal-counter {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
+  padding: 8px 0;
+}
+
+.gallery-modal-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.12);
+  border: none;
+  color: #fff;
+  font-size: 2.5rem;
+  line-height: 1;
+  width: 48px;
+  height: 64px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+  padding: 0;
+}
+
+.gallery-modal-arrow:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.gallery-modal-arrow.left {
+  left: 8px;
+}
+
+.gallery-modal-arrow.right {
+  right: 8px;
+}
+
+.gallery-modal-dots {
+  position: absolute;
+  bottom: -36px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+}
+
+.gallery-modal-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.15s, transform 0.15s;
+}
+
+.gallery-modal-dot.active {
+  background: #fff;
+  transform: scale(1.3);
+}
+
+@media (max-width: 640px) {
+  .bento-gallery {
+    min-height: 220px;
+    height: 220px;
+  }
+
+  .news-card-content {
+    -webkit-line-clamp: 6;
+  }
+}
+
+.img-manager {
+  margin: 12px 0 16px;
+}
+
+.img-manager-hint {
+  font-size: 12px;
+  color: #6b7280;
+  margin: 0 0 8px;
+}
+
+.img-manager-empty {
+  font-size: 13px;
+  color: #9ca3af;
+  font-style: italic;
+  margin: 8px 0 16px;
+}
+
+.img-manager-list {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: #e5e7eb transparent;
+}
+
+.img-manager-card {
+  position: relative;
+  flex: 0 0 120px;
+  width: 120px;
+  height: 120px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1.5px solid #e5e7eb;
+  cursor: grab;
+  transition: border-color 0.15s, transform 0.15s;
+  background: #f9fafb;
+}
+
+.img-manager-card:active {
+  cursor: grabbing;
+  transform: scale(0.97);
+  border-color: #3b82f6;
+}
+
+.img-manager-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+}
+
+.img-manager-handle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 22px;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  letter-spacing: -1px;
+  cursor: grab;
+}
+
+.img-manager-badge {
+  position: absolute;
+  bottom: 5px;
+  left: 26px;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 1px 5px;
+  border-radius: 4px;
+  line-height: 1.6;
+}
+
+.img-manager-remove {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  border: none;
+  color: #fff;
+  font-size: 11px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  padding: 0;
+  transition: background 0.15s;
+}
+
+.img-manager-remove:hover {
+  background: #ef4444;
+}
+
 
 
 @layer base {

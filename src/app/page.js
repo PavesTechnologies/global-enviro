@@ -11,21 +11,21 @@ export default function Home() {
   const slides = [
     {
       image: "https://storage.googleapis.com/uxpilot-auth.appspot.com/3e425a459b-733ddb1f886d42169401.png",
-      title: "Air Pollution Control",
+      title: "Air Pollution Control Systems",
       subtitle: `Innovative systems designed to reduce emissions and safeguard air quality.\nEmpowering industries to meet environmental standards with efficiency and reliability.`,
       buttonText: "Know More",
       buttonLink: "/projects-and-products/AirPollutionControl",
     },
     {
       image: "https://storage.googleapis.com/uxpilot-auth.appspot.com/3e425a459b-733ddb1f886d42169401.png",
-      title: "HVAC Systems",
+      title: "HVAC Clean Room Projects",
       subtitle: `High-performance cleanroom and HVAC solutions built for precision and energy savings.\nCreating controlled environments that improve comfort, safety, and efficiency.`,
       buttonText: "Know More",
       buttonLink: "/projects-and-products/HVAC",
     },
     {
       image: "https://storage.googleapis.com/uxpilot-auth.appspot.com/3e425a459b-733ddb1f886d42169401.png",
-      title: "Material Handling",
+      title: "Material Handling Systems",
       subtitle: `Comprehensive solutions for smooth, safe, and efficient bulk material movement.\nOptimized designs that enhance productivity and reduce operational downtime.`,
       buttonText: "Know More",
       buttonLink: "/projects-and-products/MaterialHandling",
@@ -37,12 +37,24 @@ export default function Home() {
       buttonText: "Know More",
       buttonLink: "/projects-and-products/EPCPower",
     },
+    {
+      image: "https://storage.googleapis.com/uxpilot-auth.appspot.com/3e425a459b-733ddb1f886d42169401.png",
+      title: "Metallurgicals & Briquettes",
+      subtitle: `Premium metallurgical products and eco-friendly briquettes for diverse industrial applications.\nCombining quality, sustainability, and innovation to meet evolving market demands.`,
+      buttonText: "Know More",
+      buttonLink: "/Ourgroup/GlobalMetallurgy",
+    },
   ];
 
   return (
     <main className="flex min-h-screen flex-col w-full">
       {/* Hero Carousel */}
-      <HeroCarousel slides={slides} interval={7000} pauseOnHover={false} pauseOnBtnHover={true} />
+      <HeroCarousel 
+        slides={slides} 
+        interval={2000}   
+        pauseOnHover={false} 
+        pauseOnBtnHover={true} 
+      />
 
       {/* About Us Banner */}
       <About />
@@ -52,7 +64,7 @@ export default function Home() {
         <Management />
       </section>
 
-      {/* Key Persons — NEW */}
+      {/* Key Persons */}
       <section id="key-persons">
         <KeyPersons />
       </section>

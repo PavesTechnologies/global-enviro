@@ -83,6 +83,7 @@ const navItems = [
   { title: "Our Clients", url: "/OurClients" },
   { title: "News & Events", url: "/news-and-events" },
   { title: "Careers", url: "/careers" },
+  {title : "Contact Us", url: "/contactUs" },
 ];
 
 const Navbar = () => {
@@ -111,14 +112,14 @@ const Navbar = () => {
     <>
       <div
         style={{
-          height: isScrolled ? "60px" : "140px",
+          height: isScrolled ? "50px" : "110px",
           transition: "height 0.4s ease-in-out",
         }}
       />
       <header
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
           isScrolled
-            ? "bg-white/90 backdrop-blur-md shadow-lg"
+            ? "bg-white/80 backdrop-blur-lg shadow-md"
             : "bg-white shadow-none"
         }`}
       >
@@ -127,14 +128,14 @@ const Navbar = () => {
           className={`flex justify-between items-center px-4 md:px-8 xl:px-20 border-b border-gray-200 bg-white transition-all duration-500 ease-in-out overflow-hidden ${
             isScrolled
               ? "max-h-0 opacity-0 py-0 border-none"
-              : "max-h-[80px] opacity-100 py-2"
+              : "max-h-[60px] opacity-100 py-1"
           }`}
         >
           <Link href="/" className="leading-none">
             <img
               src="/assets/images/group-logo.png"
               alt="Global Enviro Logo"
-              className="h-[65px] w-auto"
+              className="h-[50px] w-auto"
             />
           </Link>
 
@@ -158,10 +159,10 @@ const Navbar = () => {
 
         {/* --- Main Nav --- */}
         <nav
-          className="flex items-center justify-between px-3 sm:px-6 lg:px-12 xl:px-20 transition-all duration-300"
+          className="flex items-center justify-center px-3 sm:px-6 lg:px-12 xl:px-20 transition-all duration-300"
           style={{
             backgroundColor: primaryBlue,
-            height: isScrolled ? "48px" : "60px",
+            height: isScrolled ? "44px" : "52px",
           }}
         >
           {/* Mobile Logo */}
@@ -174,10 +175,10 @@ const Navbar = () => {
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden lg:flex items-center justify-between w-full">
-            <ul className="flex flex-wrap gap-5 xl:gap-8 text-[14px] font-semibold uppercase">
+          <div className="hidden lg:flex items-center justify-center w-full">
+            <ul className="flex flex-wrap justify-center items-center gap-6 xl:gap-10 text-[14px] font-semibold uppercase">
               {navItems.map((item) => {
-                const isActive = pathname === item.url;
+                const isActive = pathname.startsWith(item.url);
                 return (
                   <li
                     key={item.title}
@@ -190,7 +191,7 @@ const Navbar = () => {
                   >
                     <Link
                       href={item.url}
-                      className={`px-2 py-1 rounded-md flex items-center gap-1 ${
+                      className={`px-3 py-1.5 rounded-md flex items-center gap-1 ${
                         isActive
                           ? "bg-[#386FC1] text-white"
                           : "hover:bg-[#386FC1] text-white"
@@ -267,13 +268,6 @@ const Navbar = () => {
               })}
             </ul>
 
-            {/* Contact Button */}
-            <Link
-              href="/contactUs"
-              className="ml-4 bg-black text-white px-5 py-2 font-bold uppercase rounded-md hover:bg-gray-900 transition-all"
-            >
-              Contact Us
-            </Link>
           </div>
 
           {/* Mobile Toggle */}
@@ -297,7 +291,7 @@ const Navbar = () => {
                         activeDropdown === item.title ? null : item.title
                       )
                     }
-                    className="w-full text-left px-5 py-3 font-semibold flex justify-between items-center"
+                    className="w-full text-left px-5 py-3 font-semibold flex justify-center items-center"
                   >
                     <span>{item.title}</span>
                     {item.dropdown && (
@@ -350,15 +344,6 @@ const Navbar = () => {
                   )}
                 </li>
               ))}
-              <li className="p-4 text-center">
-                <Link
-                  href="/contactUs"
-                  className="flex items-center justify-center bg-black text-white px-5 py-2 font-bold uppercase rounded-md hover:bg-gray-900 transition-all"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Contact Us
-                </Link>
-              </li>
             </ul>
           </div>
         )}

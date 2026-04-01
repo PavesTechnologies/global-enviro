@@ -67,11 +67,11 @@ export default function HeroCarousel({
   if (!slides.length) return null;
 
   // Slide animation variants
-  const variants = {
-    enter: (dir) => ({ x: dir > 0 ? 100 : -100, opacity: 0 }),
-    center: { x: 0, opacity: 1 },
-    exit: (dir) => ({ x: dir > 0 ? -100 : 100, opacity: 0 }),
-  };
+    const variants = {
+      enter: (dir) => ({ x: dir > 0 ? 100 : -100 }),
+      center: { x: 0 },
+      exit: (dir) => ({ x: dir > 0 ? -100 : 100 }),
+    };
 
   return (
     <div
@@ -79,7 +79,7 @@ export default function HeroCarousel({
       onMouseEnter={() => setPaused(pauseOnHover && true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <AnimatePresence mode="wait" custom={direction}>
+      <AnimatePresence mode="sync" custom={direction}>
         <motion.div
           key={current}
           className="absolute inset-0"
@@ -88,7 +88,7 @@ export default function HeroCarousel({
           initial="enter"
           animate="center"
           exit="exit"
-          transition={{ duration: 0.6, ease: "easeInOut" }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
           drag="x"
           dragConstraints={{ left: 0, right: 0 }}
           dragElastic={0.8}
@@ -103,7 +103,7 @@ export default function HeroCarousel({
             key={`image-${current}`}
             src={slides[current].image}
             alt={slides[current].title}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover absolute inset-0"
             initial={{ scale: 1 }}
             animate={{ scale: 1 }}
           />

@@ -18,17 +18,29 @@ const navItems = [
         title: "Air Pollution Control",
         url: "/service/AirPollutionControl",
         subDropdown: [
-          { title: "Dust Extraction Systems", url: "#" },
-          { title: "Fuel Extraction Systems", url: "#" },
+          { title: "Dust Extraction Systems", url: "/service/AirPollutionControl#dust-extraction" },
+          { title: "Fuel Extraction Systems", url: "/service/AirPollutionControl#fuel-extraction" },
+          { title: "Silo / Bin Aeration", url: "/service/AirPollutionControl#silo-bin" },
+          { title: "Bulk Loading Systems", url: "/service/AirPollutionControl#bulk-loading" },
+          { title: "Wagon Loading/Unloading", url: "/service/AirPollutionControl#wagon" },
         ],
       },
       {
         title: "HVAC Clean Room",
         url: "/service/HVAC",
+        subDropdown: [
+          { title: "HVAC Systems", url: "/service/HVAC#hvac" },
+          { title: "Paneling", url: "/service/HVAC#paneling" },
+        ],
       },
       {
         title: "Material Handling",
         url: "/service/MaterialHandling",
+        subDropdown: [
+          { title: "Fuel Handling Systems", url: "/service/MaterialHandling#fuel-handling" },
+          { title: "Ash Handling Systems", url: "/service/MaterialHandling#ash-handling" },
+          { title: "Warehouse Handling Systems", url: "/service/MaterialHandling#warehouse" },
+        ],
       },
       {
         title: "EPC Power Projects",
@@ -38,6 +50,10 @@ const navItems = [
       {
         title: "Metallurgicals & Briquettes",
         url: "/service/Metallurgicals",
+        subDropdown: [
+          { title: "Casting Division", url: "/service/Metallurgicals#casting" },
+          { title: "Biomass Briquettes Division", url: "/service/Metallurgicals#briquettes" },
+        ],
       },
     ],
   },
@@ -70,11 +86,11 @@ const Navbar = () => {
   return (
     <>
       {/* Spacer */}
-      <div style={{ height: isScrolled ? "50px" : "110px" }} />
+      <div style={{ height: isScrolled ? "48px" : "100px" }} />
 
       <header className="fixed top-0 left-0 w-full z-50 bg-white shadow">
 
-        {/* 🔥 TOP BAR (RESTORED ORIGINAL SIZE) */}
+        {/* TOP BAR */}
         {!isScrolled && (
           <div className="flex justify-between items-center px-6 py-2 border-b">
             <img src="/assets/images/group-logo.png" className="h-12" />
@@ -90,7 +106,7 @@ const Navbar = () => {
               </div>
               <Link
                 href="/RequestQuote"
-                className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
+                className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
               >
                 REQUEST A QUOTE
               </Link>
@@ -98,7 +114,7 @@ const Navbar = () => {
           </div>
         )}
 
-        {/* 🔵 MAIN NAVBAR (COMPACT) */}
+        {/* MAIN NAVBAR (SMALL HEIGHT) */}
         <nav className="bg-[#3877d4]">
           <ul className="hidden lg:flex justify-center gap-6 xl:gap-10 text-[13px] font-semibold uppercase text-white py-1.5">
 
@@ -114,8 +130,13 @@ const Navbar = () => {
               >
                 {/* MAIN LINK */}
                 {item.external ? (
-                  <a href={item.url} target="_blank" rel="noopener noreferrer" className="px-3 py-1">
-                    {item.title}
+                  <a
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-3 py-1 flex items-center"
+                  >
+                    {item.title} ↗
                   </a>
                 ) : (
                   <Link
@@ -131,7 +152,7 @@ const Navbar = () => {
 
                 {/* DROPDOWN */}
                 {item.dropdown && activeDropdown === item.title && (
-                  <ul className="absolute left-0 top-full bg-white text-black shadow-lg min-w-[220px]">
+                  <ul className="absolute left-0 top-full bg-white text-black shadow-lg min-w-[230px]">
 
                     {item.dropdown.map((sub) => (
                       <li
@@ -140,17 +161,29 @@ const Navbar = () => {
                         onMouseEnter={() => sub.subDropdown && setActiveSubDropdown(sub.title)}
                         onMouseLeave={() => setActiveSubDropdown(null)}
                       >
-                        <Link
-                          href={sub.url}
-                          className="flex justify-between px-3 py-2 text-sm hover:bg-gray-100"
-                        >
-                          {sub.title}
-                          {sub.subDropdown && <ChevronRight size={12} />}
-                        </Link>
+                        {/* LEVEL 2 */}
+                        {sub.external ? (
+                          <a
+                            href={sub.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex justify-between px-3 py-2 text-sm hover:bg-gray-100"
+                          >
+                            {sub.title} ↗
+                          </a>
+                        ) : (
+                          <Link
+                            href={sub.url}
+                            className="flex justify-between px-3 py-2 text-sm hover:bg-gray-100"
+                          >
+                            {sub.title}
+                            {sub.subDropdown && <ChevronRight size={12} />}
+                          </Link>
+                        )}
 
                         {/* SUBDROPDOWN */}
                         {sub.subDropdown && activeSubDropdown === sub.title && (
-                          <ul className="absolute left-full top-0 bg-white shadow-lg min-w-[180px]">
+                          <ul className="absolute left-full top-0 bg-white shadow-lg min-w-[200px]">
                             {sub.subDropdown.map((child) => (
                               <li key={child.title}>
                                 <Link
@@ -186,9 +219,21 @@ const Navbar = () => {
         {mobileOpen && (
           <div className="bg-white lg:hidden">
             {navItems.map((item) => (
-              <Link key={item.title} href={item.url} className="block px-4 py-2 border-b text-sm">
-                {item.title}
-              </Link>
+              <div key={item.title}>
+                {item.external ? (
+                  <a
+                    href={item.url}
+                    target="_blank"
+                    className="block px-4 py-2 border-b"
+                  >
+                    {item.title} ↗
+                  </a>
+                ) : (
+                  <Link href={item.url} className="block px-4 py-2 border-b">
+                    {item.title}
+                  </Link>
+                )}
+              </div>
             ))}
           </div>
         )}
